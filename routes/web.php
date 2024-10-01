@@ -9,10 +9,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('/dashboard', function () {
-////    $user = User::query()->with('budget')->find(1);
-////    dd($user->budget->first()->name);
-////    return view('dashboard', ['user' => $user]);
-//
-//});
 Route::get('/budgets', [BudgetController::class, 'index'])->name('budgets.index');
