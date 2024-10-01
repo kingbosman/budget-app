@@ -7,9 +7,9 @@
             </h1>
 
 
-            <ul role="list" class="divide-y divide-gray-100 pt-3">
+            <div role="list" class="divide-y divide-gray-100 pt-3">
                 @foreach($budgets as $budget)
-                    <a href ="#"><li class="flex justify-between gap-x-6 py-5 hover:bg-gray-200 p-6">
+                    <a href ="#" class="flex justify-between gap-x-6 py-5 hover:bg-gray-200 p-6 rounded-[10px]">
                         <div class="flex min-w-0 gap-x-4">
                             <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://cdn0.iconfinder.com/data/icons/content-5/100/bill-512.png" alt="">
                             <div class="min-w-0 flex-auto">
@@ -17,9 +17,9 @@
                                 <p class="mt-1 truncate text-xs leading-5 text-gray-500">Created on: {{ date_format($budget->created_at, 'd-m-Y') }}</p>
                             </div>
                         </div>
-                        </li></a>
+                    </a>
                 @endforeach
-            </ul>
+            </div>
 
 
         </div>
