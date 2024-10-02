@@ -12,7 +12,7 @@ class BudgetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $budgets = User::query()->with('budget')->find(1)->budget;
         return View('dashboard', ['budgets' => $budgets]);
