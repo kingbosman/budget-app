@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BudgetController;
+use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Models\Budget;
 use App\Models\User;
@@ -11,5 +12,6 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [SessionController::class, 'create'])->name('login');
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 
 Route::get('/budgets', [BudgetController::class, 'index'])->name('budgets.index');
