@@ -23,6 +23,13 @@
                         <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
                         <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
                         <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
+                        @auth
+                            <form action="/logout" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Logout</button>
+                            </form>
+                        @endauth
                     </div>
                 </div>
             </div>
