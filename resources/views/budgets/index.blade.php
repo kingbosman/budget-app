@@ -6,10 +6,13 @@
                 Select Budget
             </h1>
 
+            <div class ="mt-5">
+                <a href="{{ route('budgets.create') }}" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">+ Add budget</a>
+            </div>
 
             <div role="list" class="divide-y divide-gray-100 pt-3">
                 @foreach($budgets as $budget)
-                    <a href ="#" class="flex justify-between gap-x-6 py-5 hover:bg-gray-200 p-6 rounded-[10px]">
+                    <a href ="{{ route('budgets.show', ['budget' => $budget]) }}" class="flex justify-between gap-x-6 py-5 hover:bg-gray-200 p-6 rounded-[10px]">
                         <div class="flex min-w-0 gap-x-4">
                             <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://cdn0.iconfinder.com/data/icons/content-5/100/bill-512.png" alt="">
                             <div class="min-w-0 flex-auto">

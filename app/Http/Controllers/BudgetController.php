@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Budget;
-use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -21,31 +21,39 @@ class BudgetController extends Controller
                 $query->where('user_id', Auth::id());
             })
             ->get();
-        return View('dashboard', ['budgets' => $budgets]);
+
+        return View('budgets.index', ['budgets' => $budgets]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return View('budgets.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $attributes = $request->validate([
+           'name' => 'required','min:3',
+        ]);
+
+        $budget = Budget::create($attributes);
+        $budget->users()->attach(Auth::id());
+
+        return redirect()->route('budgets.show', ['budget' => $budget]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Budget $budget)
+    public function show(Budget $budget): View
     {
-        //
+        return View('budgets.show', ['budget' => $budget]);
     }
 
     /**

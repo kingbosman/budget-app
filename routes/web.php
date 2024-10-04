@@ -20,5 +20,10 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/budgets', [BudgetController::class, 'index'])->name('budgets.index');
+
+    Route::get('/budgets/create', [BudgetController::class, 'create'])->name('budgets.create');
+    Route::post('/budgets/create', [BudgetController::class, 'store']);
+
+    Route::get('/budgets/{budget}', [BudgetController::class, 'show'])->name('budgets.show');
 });
 

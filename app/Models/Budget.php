@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Budget extends Model
 {
     use HasFactory;
-    protected $table = 'budgets';
 
     public function users(): BelongsToMany
     {
