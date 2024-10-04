@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Budget;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class BudgetController extends Controller
@@ -14,7 +15,12 @@ class BudgetController extends Controller
      */
     public function index(): View
     {
-        $budgets = User::query()->with('budget')->find(1)->budget;
+        $budgets = Budget::query()
+            ->with('users')
+            ->whereHas('users', function ($query) {
+                $query->where('user_id', Auth::id());
+            })
+            ->get();
         return View('dashboard', ['budgets' => $budgets]);
     }
 

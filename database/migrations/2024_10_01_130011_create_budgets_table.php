@@ -27,8 +27,8 @@ return new class extends Migration
 
         Schema::create('budget_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('budget_id');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('budget_id')->constrained();
+            $table->foreignId('user_id')->constrained();
         });
     }
 

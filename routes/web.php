@@ -18,4 +18,7 @@ Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout');
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
-Route::get('/budgets', [BudgetController::class, 'index'])->name('budgets.index');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/budgets', [BudgetController::class, 'index'])->name('budgets.index');
+});
+

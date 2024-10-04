@@ -46,8 +46,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function budget(): BelongsToMany
+    public function budgets(): BelongsToMany
     {
-        return $this->belongsToMany(Budget::class, relatedPivotKey: 'budget_id');
+        return $this->belongsToMany(Budget::class);
     }
 }
