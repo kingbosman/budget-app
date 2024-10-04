@@ -47,6 +47,6 @@ class SessionController extends Controller
     public function destroy(): RedirectResponse
     {
         Auth::logout();
-        return redirect()->route('login');
+        return redirect()->route('home');
     }
 }
