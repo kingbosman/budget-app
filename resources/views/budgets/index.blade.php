@@ -5,11 +5,9 @@
             <h1 class="text-3xl font-bold underline">
                 Select Budget
             </h1>
-
             <div class ="mt-5">
                 <a href="{{ route('budgets.create') }}" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">+ Add budget</a>
             </div>
-
             <div role="list" class="divide-y divide-gray-100 pt-3">
                 @foreach($budgets as $budget)
                     <a href ="{{ route('budgets.show', ['budget' => $budget]) }}" class="flex justify-between gap-x-6 py-5 hover:bg-gray-200 p-6 rounded-[10px]">
@@ -23,16 +21,6 @@
                     </a>
                 @endforeach
             </div>
-
-
         </div>
-
     </main>
-
-
-
-
-
-
-
 </x-layout>

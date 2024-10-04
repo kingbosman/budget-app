@@ -39,7 +39,7 @@ class BudgetController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $attributes = $request->validate([
-           'name' => 'required','min:3',
+           'name' => ['required','min:3'],
         ]);
 
         $budget = Budget::create($attributes);
