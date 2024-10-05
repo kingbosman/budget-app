@@ -24,6 +24,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/budgets/create', [BudgetController::class, 'create'])->name('budgets.create');
     Route::post('/budgets/create', [BudgetController::class, 'store']);
 
-    Route::get('/budgets/{budget}', [BudgetController::class, 'show'])->name('budgets.show');
+    Route::get('/budgets/{budget}', [BudgetController::class, 'show'])->name('budgets.show')->can('edit', 'budget');
 });
 
