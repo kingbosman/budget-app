@@ -7,16 +7,16 @@ use App\Models\User;
 
 class BudgetPolicy
 {
-    /**
-     * Create a new policy instance.
-     */
-    public function __construct()
-    {
-        //
-    }
 
-    public function edit(User $user, Budget $budget)
+    public function show(User $user, Budget $budget)
     {
         return $budget->users->contains($user);
     }
+
+    public function update(User $user, Budget $budget)
+    {
+        // create model for admin privileges and replace below to only admin instead of all users
+        return $budget->users->contains($user);
+    }
+
 }
