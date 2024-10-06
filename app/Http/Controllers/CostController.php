@@ -36,8 +36,8 @@ class CostController extends Controller
     public function update(Request $request, Cost $cost): RedirectResponse
     {
         $attributes = $request->validate([
-            'category' => 'max:255|required',
-            'amount' => 'required|numeric|min:0|required',
+            'category' => ['max:255', 'required'],
+            'amount' => ['numeric', 'required', 'min:0'],
         ]);
 
         $attributes['paid'] = ($request->paid) ? 1 : 0;
