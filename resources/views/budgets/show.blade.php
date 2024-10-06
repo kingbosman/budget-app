@@ -7,7 +7,7 @@
                 {{ $budget->name }}
             </h1>
             <div class ="mt-5 mb-3">
-                <a href="{{ route('budgets.create') }}" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">+ New record</a>
+                <a href="{{ route('costs.create', $budget) }}" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">+ New record</a>
             </div>
 
             <div class="mt-5 relative overflow-x-auto shadow-md sm:rounded-lg">

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCostRequest;
 use App\Http\Requests\UpdateCostRequest;
+use App\Models\Budget;
 use App\Models\Cost;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CostController extends Controller
 {
@@ -14,17 +16,18 @@ class CostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Budget $budget): View
     {
-        //
+        return view('costs.create', ['budget' => $budget]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCostRequest $request)
+    public function store(Request $request, Budget $budget): RedirectResponse
     {
-        //
+        //TODO create store request
+        dd('still need to do something');
     }
 
     /**
@@ -33,8 +36,8 @@ class CostController extends Controller
     public function update(Request $request, Cost $cost): RedirectResponse
     {
         $attributes = $request->validate([
-            'category' => 'max:255',
-            'amount' => 'required|numeric|min:0',
+            'category' => 'max:255|required',
+            'amount' => 'required|numeric|min:0|required',
         ]);
 
         $attributes['paid'] = ($request->paid) ? 1 : 0;

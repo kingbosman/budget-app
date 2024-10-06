@@ -36,5 +36,13 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/costs/{cost}', [CostController::class, 'update'])
         ->name('costs.update')
         ->can('update', 'cost');
+
+    Route::get('/costs/{budget}/new', [CostController::class, 'create'])
+        ->name('costs.create')
+        ->can('update', 'budget');
+
+    Route::post('/costs/{budget}/new', [CostController::class, 'store'])
+        ->name('costs.store')
+        ->can('update', 'budget');
 });
 
