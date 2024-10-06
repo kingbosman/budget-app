@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Budget;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,10 +18,10 @@ class CostFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'description' => fake()->word(),
             'amount' => fake()->numberBetween(2,100),
             'paid' => 0,
-            'category' => fake()->word(),
+            'budget_id' => 1,
         ];
     }
 }

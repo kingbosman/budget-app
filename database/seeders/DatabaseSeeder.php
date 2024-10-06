@@ -18,11 +18,12 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => 'test'
+            'email' => 'robin@gmail.com',
+            'password' => 'test12345'
         ]);
 
-        Budget::factory(2)->create();
+//        $this->call(BudgetSeeder::class);
+//        $this->call(CostSeeder::class);
 
     }
 }

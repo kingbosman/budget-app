@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Budget;
+use App\Models\Cost;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +54,15 @@ class BudgetController extends Controller
      */
     public function show(Budget $budget): View
     {
-        return View('budgets.show', ['budget' => $budget]);
+        $costs = Cost::query()
+            ->where('budget_id', $budget->id)
+            ->orderBy('category', 'desc')
+            ->get();
+
+        return View('budgets.show', [
+            'budget' => $budget,
+            'costs' => $costs,
+        ]);
     }
 
     /**

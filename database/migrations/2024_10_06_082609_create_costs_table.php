@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Budget;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,16 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('budgets', function (Blueprint $table) {
+        Schema::create('costs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('budget_user', function (Blueprint $table) {
-            $table->id();
+            $table->string('description');
+            $table->integer('amount');
+            $table->string('category')->nullable();
+            $table->boolean('paid')->default(false);
             $table->foreignId('budget_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->timestamps();
         });
     }
 
@@ -29,7 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('budgets');
-        Schema::dropIfExists('budget_user');
+        Schema::dropIfExists('costs');
     }
 };
