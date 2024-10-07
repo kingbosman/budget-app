@@ -10,7 +10,7 @@
                     <form method="POST" action="{{ route('budgets.delete', $budget) }}">
                         @csrf
                         @method('delete')
-                        <button type="submit" onclick="return confirm('Delete {{ $budget->name }}')" class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+                        <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $budget->name }}')" class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
                             Delete
                         </button>
                     </form>

@@ -6,9 +6,9 @@
                 Create new record  for {{ $budget->name }}
             </h1>
             <x-forms.form method="post" button="Create">
-                <x-forms.input name="description" placeholder="Rent" />
-                <x-forms.input name="amount" placeholder="123.50" />
-                <x-forms.input name="category" placeholder="Utility" />
+                <x-forms.input name="description" placeholder="Rent" value="{{ old('description') }}" />
+                <x-forms.input name="amount" placeholder="123.50" value="{{ old('amount') }}" />
+                <x-forms.input name="category" placeholder="Utility" value="{{ old('category') }}" />
             </x-forms.form>
         </div>
     </main>
