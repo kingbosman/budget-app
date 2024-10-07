@@ -64,7 +64,7 @@ class CostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cost $cost)
+    public function destroy(Cost $cost): RedirectResponse
     {
         $budget = $cost->budget;
         $description = $cost->description;
