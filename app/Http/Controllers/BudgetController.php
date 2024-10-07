@@ -68,17 +68,22 @@ class BudgetController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Budget $budget)
+    public function edit(Budget $budget): View
     {
-        //
+        return View('budgets.edit', ['budget' => $budget]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Budget $budget)
+    public function update(Request $request, Budget $budget): RedirectResponse
     {
-        //
+        $attributes = $request->validate([
+           'name' => ['required','min:3'],
+        ]);
+
+        $budget->update($attributes);
+        return redirect()->route('budgets.show', ['budget' => $budget]);
     }
 
     /**
@@ -86,6 +91,7 @@ class BudgetController extends Controller
      */
     public function destroy(Budget $budget)
     {
-        //
+        $budget->delete();
+        return redirect()->route('budgets.index')->with('session', 'Budget ' . $budget->name . ' successfully deleted!');
     }
 }

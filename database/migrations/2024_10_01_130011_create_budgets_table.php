@@ -19,8 +19,8 @@ return new class extends Migration
 
         Schema::create('budget_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('budget_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('budget_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
         });
     }
 

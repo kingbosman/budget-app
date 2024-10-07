@@ -24,7 +24,7 @@
             </div>
             @auth
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-end">
-                    <form action="/logout" method="post">
+                    <form action="{{ route('logout') }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white" type="submit">Logout</button>

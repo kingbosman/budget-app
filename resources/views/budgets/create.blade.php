@@ -6,7 +6,7 @@
                 Create new budget
             </h1>
             <x-forms.form method="post" button="Create">
-                <x-forms.input name="name" placeholder="Annie & John" />
+                <x-forms.input name="name" placeholder="Annie & John" value="{{ old('name') }}" />
             </x-forms.form>
         </div>
     </main>

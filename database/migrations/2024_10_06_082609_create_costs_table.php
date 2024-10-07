@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('amount');
             $table->string('category')->nullable();
             $table->boolean('paid')->default(false);
-            $table->foreignId('budget_id')->constrained();
+            $table->foreignId('budget_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
