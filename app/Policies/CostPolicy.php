@@ -21,7 +21,7 @@ class CostPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Cost $cost): bool
+    public function destroy(User $user, Cost $cost): bool
     {
         return $cost->budget->users->contains($user);
     }

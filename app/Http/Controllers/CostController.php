@@ -26,8 +26,20 @@ class CostController extends Controller
      */
     public function store(Request $request, Budget $budget): RedirectResponse
     {
-        //TODO create store request
-        dd('still need to do something');
+        $attributes = request()->validate([
+            'description' => ['required', 'string'],
+            'amount' => ['required', 'numeric'],
+            'category' => ['string', 'nullable'],
+        ]);
+
+        $attributes['amount'] = intval($request->amount * 100);
+        $attributes['category'] = strtolower($attributes['category']);
+        $attributes['budget_id'] = $budget->id;
+
+        Cost::create($attributes);
+
+        return redirect()->route('budgets.show', ['budget' => $budget]);
+
     }
 
     /**
@@ -39,7 +51,6 @@ class CostController extends Controller
             'category' => ['max:50'],
             'amount' => ['numeric', 'required', 'min:0'],
         ]);
-        //TODO check view for error messages
 
         $attributes['paid'] = ($request->paid) ? 1 : 0;
         $attributes['amount'] = intval($request->amount * 100);
@@ -55,6 +66,9 @@ class CostController extends Controller
      */
     public function destroy(Cost $cost)
     {
-        //
+        $budget = $cost->budget;
+        $description = $cost->description;
+        $cost->delete();
+        return redirect()->route('budgets.show', $budget)->with('status', 'Record ' . $description . ' deleted');
     }
 }

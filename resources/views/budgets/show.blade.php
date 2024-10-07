@@ -62,7 +62,11 @@
                                     <input type="checkbox" name="paid" id="paid" class="bg-gray-800 hover:border-blue-800" @if($cost->paid) checked @endif onChange="this.form.submit()">
                                 </td>
                                 <td class="px-6 py-4">
-                                    <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
+                                    <form action="{{ route('costs.destroy', $cost) }}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" onclick="return confirm('Delete {{ $cost->description }}')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         </form>

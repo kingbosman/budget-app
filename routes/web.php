@@ -37,6 +37,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('costs.update')
         ->can('update', 'cost');
 
+    Route::delete('/costs/{cost}', [CostController::class, 'destroy'])
+        ->name('costs.destroy')
+        ->can('destroy', 'cost');
+
     Route::get('/costs/{budget}/new', [CostController::class, 'create'])
         ->name('costs.create')
         ->can('update', 'budget');
@@ -44,5 +48,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/costs/{budget}/new', [CostController::class, 'store'])
         ->name('costs.store')
         ->can('update', 'budget');
+
 });
 
