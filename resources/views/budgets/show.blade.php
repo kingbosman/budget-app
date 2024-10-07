@@ -16,6 +16,11 @@
                         <span class="font-medium">{{ session('status') }}</span>
                     </div>
                 @endif
+                @if ($errors->any())
+                    <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-red-500" role="alert">
+                        <span class="font-medium">{{ $errors->first() }}</span>
+                    </div>
+                @endif
 
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -48,10 +53,10 @@
                                     {{ $cost->description }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    <input type="text" name="amount" id="amount" class="bg-gray-800 text-xs hover:border-blue-800" value="{{ number_format($cost->amount / 100, 2, '.', '') }}">
+                                    <input type="text" name="amount" id="amount" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ number_format($cost->amount / 100, 2, '.', '') }}">
                                 </td>
                                 <td class="px-6 py-4">
-                                    <input type="text" name="category" id="category" class="bg-gray-800 text-xs hover:border-blue-800" value="{{ ucfirst($cost->category) }}">
+                                    <input type="text" name="category" id="category" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ ucfirst($cost->category) }}">
                                 </td>
                                 <td class="px-6 py-4">
                                     <input type="checkbox" name="paid" id="paid" class="bg-gray-800 hover:border-blue-800" @if($cost->paid) checked @endif onChange="this.form.submit()">
