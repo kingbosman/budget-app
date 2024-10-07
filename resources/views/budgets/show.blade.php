@@ -6,9 +6,15 @@
             <h1 class="text-3xl font-bold underline text-gray-300">
                 {{ $budget->name }}
             </h1>
-            <div class ="mt-5 mb-3">
-                <a href="{{ route('costs.create', $budget) }}" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">+ New record</a>
+            <div class ="mt-5 mb-3 flex flex-1">
+                <div class ="flex flex-1 sm:items-stretch justify-start">
+                    <a href="{{ route('costs.create', $budget) }}" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">+ New record</a>
+                </div>
+                <div class ="flex flex-1 sm:items-stretch justify-end">
+                    <a href="{{ route('costs.create', $budget) }}" class="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Settings</a>
+                </div>
             </div>
+
 
             <div class="mt-5 relative overflow-x-auto shadow-md sm:rounded-lg">
                 @if (session('status'))
