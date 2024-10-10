@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CostController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
@@ -65,5 +66,9 @@ Route::middleware(['auth'])->group(function () {
         ->name('costs.destroy')
         ->can('destroy', 'cost');
 
+    // Income
+        Route::get('/income/{budget}', [IncomeController::class, 'index'])
+        ->name('income.index')
+        ->can('show', 'budget');
 });
 
