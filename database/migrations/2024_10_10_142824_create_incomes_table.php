@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Budget;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,10 @@ return new class extends Migration
     {
         Schema::create('incomes', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->integer('amount');
+            $table->boolean('is_received')->default(false);
+            $table->foreignIdFor(Budget::class);
             $table->timestamps();
         });
     }

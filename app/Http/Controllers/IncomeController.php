@@ -14,8 +14,10 @@ class IncomeController extends Controller
      */
     public function index(Budget $budget): View
     {
+
         return view('incomes.index', [
             'budget' => $budget,
+            'incomes' => Income::query()->where('budget_id', $budget->id)->get(),
         ]);
     }
 

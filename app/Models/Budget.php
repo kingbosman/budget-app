@@ -22,4 +22,9 @@ class Budget extends Model
         return $this->hasMany(Cost::class);
     }
 
+    public function incomes(): HasMany
+    {
+        return $this->hasMany(Income::class);
+    }
+
 }
