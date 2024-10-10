@@ -2,7 +2,9 @@
     <x-slot:title>Budget</x-slot:title>
 
     <main>
+
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <x-budgets.tabs :$budget />
             <h1 class="text-3xl font-bold underline text-gray-300">
                 {{ $budget->name }}
             </h1>
@@ -68,7 +70,7 @@
                                 <input type="checkbox" name="paid" id="paid" class="bg-gray-800 hover:border-blue-800" @if($cost->paid) checked @endif onChange="this.form.submit()">
                             </td>
                             <td class="px-6 py-4">
-                                <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
+                                <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Submit</button>
                             </td>
                             <td class="px-6 py-4">
                             </form>
