@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Budget;
 use App\Models\Income;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -40,9 +41,16 @@ class IncomeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Income $income)
+    public function update(Request $request, Income $income): RedirectResponse
     {
-        //
+        $attributes = $request->validate([
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        $attributes['amount'] = intval($attributes['amount'] * 100);
+
+        $income->update($attributes);
+        return redirect()->route('incomes.index', $income->budget);
     }
 
     /**

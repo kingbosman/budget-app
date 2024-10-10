@@ -10,6 +10,6 @@
         <a href="{{ route('budgets.show', $budget) }}" aria-current="{{ request()->is('budgets*') ? 'page' : 'false' }}" class="{{ request()->is('budgets*') ? $active : $idle}}">Budget</a>
     </li>
     <li class="me-2">
-        <a href="{{ route('income.index', $budget) }}" aria-current="{{ request()->is('income*') ? 'page' : 'false' }}" class="{{ request()->is('income*') ? $active : $idle}}">Income</a>
+        <a href="{{ route('incomes.index', $budget) }}" aria-current="{{ request()->is('income*') ? 'page' : 'false' }}" class="{{ request()->is('income*') ? $active : $idle}}">Income</a>
     </li>
 </ul>

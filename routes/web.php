@@ -67,8 +67,13 @@ Route::middleware(['auth'])->group(function () {
         ->can('destroy', 'cost');
 
     // Income
-        Route::get('/income/{budget}', [IncomeController::class, 'index'])
-        ->name('income.index')
+    Route::get('/income/{budget}', [IncomeController::class, 'index'])
+        ->name('incomes.index')
         ->can('show', 'budget');
+
+
+    Route::patch('/income/{income}', [IncomeController::class, 'update'])
+        ->name('income.patch')
+        ->can('update', 'income');
 });
 
