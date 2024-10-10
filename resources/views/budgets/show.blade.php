@@ -4,10 +4,11 @@
     <main>
 
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <x-budgets.tabs :$budget />
-            <h1 class="text-3xl font-bold underline text-gray-300">
+
+            <h1 class="text-3xl font-bold underline text-gray-300 mb-5">
                 {{ $budget->name }}
             </h1>
+            <x-budgets.tabs :$budget />
             <div class ="mt-5 mb-3 flex flex-1">
                 <div class ="flex flex-1 sm:items-stretch justify-start">
                     <a href="{{ route('costs.create', $budget) }}" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">+ New record</a>

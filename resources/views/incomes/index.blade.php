@@ -4,10 +4,11 @@
     <main>
 
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <x-budgets.tabs :$budget />
-            <h1 class="text-3xl font-bold underline text-gray-300">
+
+            <h1 class="text-3xl font-bold underline text-gray-300 mb-5">
                 {{ $budget->name }}
             </h1>
+            <x-budgets.tabs :$budget />
 
             <div class="mt-5 relative overflow-x-auto shadow-md sm:rounded-lg">
                 @if (session('status'))
