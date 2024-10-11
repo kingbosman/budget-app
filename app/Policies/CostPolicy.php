@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Budget;
 use App\Models\Cost;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;

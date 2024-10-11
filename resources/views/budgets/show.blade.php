@@ -46,7 +46,7 @@
                         <th scope="col" class="px-6 py-3">
                             Paid
                         </th>
-                        <th colspan="2" scope="col" class="px-6 py-3 text-center">
+                        <th scope="col" class="px-6 py-3 text-center">
 
                         </th>
                     </tr>
@@ -54,27 +54,37 @@
                     <tbody>
 
                     @foreach($costs as $cost)
-                        <form action="{{ route('costs.update', $cost) }}" method="post">
-                        @csrf
-                        @method('patch')
+
+
                         <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $cost->description }}
                             </th>
                             <td class="px-6 py-4">
-                                <input type="text" name="amount" id="amount" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ number_format($cost->amount / 100, 2, '.', '') }}">
+                                <form action="{{ route('costs.update', $cost) }}" method="post">
+                                    @csrf
+                                    @method('patch')
+                                    <input type="text" name="amount" id="amount" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ number_format($cost->amount / 100, 2, '.', '') }}">
+                                    <input type="hidden" name="form_type" value="update_amount">
+                                </form>
                             </td>
                             <td class="px-6 py-4">
-                                <input type="text" name="category" id="category" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ ucfirst($cost->category) }}">
+                                <form action="{{ route('costs.update', $cost) }}" method="post">
+                                    @csrf
+                                    @method('patch')
+                                    <input type="text" name="category" id="category" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ ucfirst($cost->category) }}">
+                                    <input type="hidden" name="form_type" value="update_category">
+                                </form>
                             </td>
                             <td class="px-6 py-4">
-                                <input type="checkbox" name="paid" id="paid" class="bg-gray-800 hover:border-blue-800" @if($cost->paid) checked @endif onChange="this.form.submit()">
+                                <form action="{{ route('costs.update', $cost) }}" method="post">
+                                    @csrf
+                                    @method('patch')
+                                    <input type="checkbox" name="paid" id="paid" class="bg-gray-800 hover:border-blue-800" @if($cost->paid) checked @endif onChange="this.form.submit()">
+                                    <input type="hidden" name="form_type" value="update_paid">
+                                </form>
                             </td>
                             <td class="px-6 py-4">
-                                <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Submit</button>
-                            </td>
-                            <td class="px-6 py-4">
-                            </form>
                                 <form action="{{ route('costs.destroy', $cost) }}" method="POST">
                                     @csrf
                                     @method('delete')

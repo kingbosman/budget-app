@@ -47,14 +47,25 @@ class CostController extends Controller
      */
     public function update(Request $request, Cost $cost): RedirectResponse
     {
-        $attributes = $request->validate([
-            'category' => ['max:50'],
-            'amount' => ['numeric', 'required', 'min:0'],
-        ]);
+        switch ($request->form_type) {
+            case 'update_amount':
+                $attributes = $request->validate([
+                    'amount' => ['numeric', 'required', 'min:0'],
+                ]);
 
-        $attributes['paid'] = ($request->paid) ? 1 : 0;
-        $attributes['amount'] = intval($request->amount * 100);
-        $attributes['category'] = strtolower($attributes['category']);
+                $attributes['amount'] *= 100;
+
+                break;
+            case 'update_category':
+                $attributes = $request->validate([
+                    'category' => ['max:50'],
+                ]);
+                $attributes['category'] = strtolower($attributes['category']);
+                break;
+            case 'update_paid':
+                $attributes['paid'] = ($request->paid) ? 1 : 0;
+                break;
+        }
 
         $cost->update($attributes);
 
