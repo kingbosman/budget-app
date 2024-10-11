@@ -11,4 +11,9 @@ class IncomePolicy
     {
         return $income->budget->users->contains($user);
     }
+
+    public function destroy(User $user, Income $income)
+    {
+        return $income->budget->users->contains($user);
+    }
 }

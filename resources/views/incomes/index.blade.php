@@ -43,16 +43,19 @@
                                     {{ $income->name }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    <form method="POST" action="{{ route('income.patch', $income) }}">
+                                    <form method="POST" action="{{ route('income.update', $income) }}">
                                         @csrf
                                         @method('patch')
                                         <input type="text" name="amount" id="amount" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ $income->amount / 100 }}">
                                         <button class="hidden" type="submit"></button>
                                     </form>
-
                                 </td>
                                 <td>
-                                    <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                    <form method="POST" action="{{ route('income.destroy', $income) }}">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

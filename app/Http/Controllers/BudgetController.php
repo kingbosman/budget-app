@@ -92,6 +92,6 @@ class BudgetController extends Controller
     public function destroy(Budget $budget)
     {
         $budget->delete();
-        return redirect()->route('budgets.index')->with('session', 'Budget ' . $budget->name . ' successfully deleted!');
+        return redirect()->route('budgets.index')->with('status', 'Budget ' . $budget->name . ' successfully deleted!');
     }
 }

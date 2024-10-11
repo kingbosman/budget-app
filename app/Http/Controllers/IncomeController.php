@@ -56,8 +56,9 @@ class IncomeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Income $income)
+    public function destroy(Income $income): RedirectResponse
     {
-        //
+        $income->delete();
+        return redirect()->route('incomes.index', $income->budget)->with('status', $income->name . ' was successfully deleted.');
     }
 }

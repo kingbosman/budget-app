@@ -5,6 +5,11 @@
             <h1 class="text-3xl font-bold underline text-gray-300">
                 Select Budget
             </h1>
+            @if (session('status'))
+                <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                    <span class="font-medium">{{ session('status') }}</span>
+                </div>
+            @endif
             <div class ="mt-5 mb-3">
                 <a href="{{ route('budgets.create') }}" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">+ Add budget</a>
             </div>

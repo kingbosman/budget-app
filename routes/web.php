@@ -73,7 +73,11 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::patch('/income/{income}', [IncomeController::class, 'update'])
-        ->name('income.patch')
+        ->name('income.update')
         ->can('update', 'income');
+
+    Route::delete('/income/{income}', [IncomeController::class, 'destroy'])
+        ->name('income.destroy')
+        ->can('destroy', 'income');
 });
 
