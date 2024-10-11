@@ -5,7 +5,6 @@
             <h1 class="mb-5 text-3xl font-bold underline text-gray-300">
                 Create new income for {{ $budget->name }}
             </h1>
-            <x-budgets.tabs :$budget />
             <x-forms.form method="post" button="Create">
                 <x-forms.input name="name" placeholder="Annie & John" value="{{ old('name') }}" />
                 <x-forms.input name="amount" placeholder="1203.56" value="{{ old('name') }}" />
