@@ -9,6 +9,11 @@
                 {{ $budget->name }}
             </h1>
             <x-budgets.tabs :$budget />
+            <div class ="mt-5 mb-3 flex flex-1">
+                <div class="flex flex-1 sm:items-stretch justify-end">
+                    <a href="{{ route('incomes.create', $budget) }}" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">+ Create</a>
+                </div>
+            </div>
 
             <div class="mt-5 relative overflow-x-auto shadow-md sm:rounded-lg">
                 @if (session('status'))
@@ -44,7 +49,7 @@
                                     {{ $income->name }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    <form method="POST" action="{{ route('income.update', $income) }}">
+                                    <form method="POST" action="{{ route('incomes.update', $income) }}">
                                         @csrf
                                         @method('patch')
                                         <input type="hidden" name="form_type" value="update_amount">
@@ -53,7 +58,7 @@
                                     </form>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <form method="POST" action="{{ route('income.update', $income) }}">
+                                    <form method="POST" action="{{ route('incomes.update', $income) }}">
                                         @method('patch')
                                         @csrf
                                         <input type="hidden" name="form_type" value="update_is_received">
@@ -62,7 +67,7 @@
 
                                 </td>
                                 <td>
-                                    <form method="POST" action="{{ route('income.destroy', $income) }}">
+                                    <form method="POST" action="{{ route('incomes.destroy', $income) }}">
                                         @method('delete')
                                         @csrf
                                         <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $income->name }}')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>

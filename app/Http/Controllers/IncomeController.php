@@ -25,17 +25,28 @@ class IncomeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Budget $budget): View
     {
-        //
+        return view('incomes.create', [
+           'budget' => $budget,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Budget $budget): RedirectResponse
     {
-        //
+        $attributes = $request->validate([
+            'name' => 'required|max:100',
+           'amount' => 'required|numeric|min:0',
+        ]);
+
+        $attributes['amount'] *= 100;
+        $attributes['budget_id'] = $budget->id;
+        Income::create($attributes);
+
+        return redirect()->route('incomes.index', $budget);
     }
 
     /**

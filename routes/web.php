@@ -70,14 +70,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/income/{budget}', [IncomeController::class, 'index'])
         ->name('incomes.index')
         ->can('show', 'budget');
+    Route::get('/income/{budget}/new', [IncomeController::class, 'create'])
+        ->name('incomes.create')
+        ->can('update', 'budget');
+    Route::post('/income/{budget}/new', [IncomeController::class, 'store'])
+        ->name('incomes.store')
+        ->can('update', 'budget');
 
 
     Route::patch('/income/{income}', [IncomeController::class, 'update'])
-        ->name('income.update')
+        ->name('incomes.update')
         ->can('update', 'income');
 
     Route::delete('/income/{income}', [IncomeController::class, 'destroy'])
-        ->name('income.destroy')
+        ->name('incomes.destroy')
         ->can('destroy', 'income');
+
 });
 
