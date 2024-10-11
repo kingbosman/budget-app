@@ -31,9 +31,10 @@
                         <th scope="col" class="px-6 py-3">
                             Eur
                         </th>
-                        <th scope="col" class="px-6 py-3 text-center">
-
+                        <th scope="col" class="px-6 py-3">
+                            Received
                         </th>
+                        <th scope="col" class="px-6 py-3 text-center"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -46,15 +47,25 @@
                                     <form method="POST" action="{{ route('income.update', $income) }}">
                                         @csrf
                                         @method('patch')
+                                        <input type="hidden" name="form_type" value="update_amount">
                                         <input type="text" name="amount" id="amount" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ $income->amount / 100 }}">
                                         <button class="hidden" type="submit"></button>
                                     </form>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <form method="POST" action="{{ route('income.update', $income) }}">
+                                        @method('patch')
+                                        @csrf
+                                        <input type="hidden" name="form_type" value="update_is_received">
+                                        <input type="checkbox" name="is_received" id="is_received" class="bg-gray-800 hover:border-blue-800" @if($income->is_received) checked @endif onChange="this.form.submit()">
+                                    </form>
+
                                 </td>
                                 <td>
                                     <form method="POST" action="{{ route('income.destroy', $income) }}">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                        <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $income->name }}')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
                                     </form>
                                 </td>
                             </tr>

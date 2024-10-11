@@ -43,11 +43,20 @@ class IncomeController extends Controller
      */
     public function update(Request $request, Income $income): RedirectResponse
     {
-        $attributes = $request->validate([
-            'amount' => 'required|numeric|min:0',
-        ]);
 
-        $attributes['amount'] = intval($attributes['amount'] * 100);
+        switch($request->form_type) {
+            case 'update_amount':
+                $attributes = $request->validate([
+                    'amount' => 'required|numeric|min:0',
+                ]);
+
+                $attributes['amount'] *= 100;
+                break;
+
+            case 'update_is_received':
+                $request->is_received ? $attributes['is_received'] = true : $attributes['is_received'] = false;
+                break;
+        }
 
         $income->update($attributes);
         return redirect()->route('incomes.index', $income->budget);
