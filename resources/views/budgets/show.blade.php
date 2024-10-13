@@ -103,16 +103,6 @@
 
                     <div class ="flex flex-1 sm:items-stretch justify-end h-1.5">
                         <table class="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-{{--                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">--}}
-{{--                            <tr>--}}
-{{--                                <th scope="col" class="px-6 py-3">--}}
-{{--                                    Statistic--}}
-{{--                                </th>--}}
-{{--                                <th scope="col" class="px-6 py-3">--}}
-{{--                                    Eur--}}
-{{--                                </th>--}}
-{{--                            </tr>--}}
-{{--                            </thead>--}}
                             <tbody>
                                 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                     <td class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">Received back &nbsp;&nbsp;</td>
