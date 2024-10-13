@@ -31,71 +31,106 @@
                     </div>
                 @endif
 
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Description
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Eur
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Category
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Paid
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center">
+                <div class ="mt-5 mb-3 flex flex-1">
 
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                    <div class ="flex flex-1 sm:items-stretch justify-start">
+                        <table class="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Description
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Eur
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Category
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Paid
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
 
-                    @foreach($costs as $cost)
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @foreach($costs as $cost)
 
 
-                        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $cost->description }}
-                            </th>
-                            <td class="px-6 py-4">
-                                <form action="{{ route('costs.update', $cost) }}" method="post">
-                                    @csrf
-                                    @method('patch')
-                                    <input type="text" name="amount" id="amount" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ number_format($cost->amount / 100, 2, '.', '') }}">
-                                    <input type="hidden" name="form_type" value="update_amount">
-                                </form>
-                            </td>
-                            <td class="px-6 py-4">
-                                <form action="{{ route('costs.update', $cost) }}" method="post">
-                                    @csrf
-                                    @method('patch')
-                                    <input type="text" name="category" id="category" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ ucfirst($cost->category) }}">
-                                    <input type="hidden" name="form_type" value="update_category">
-                                </form>
-                            </td>
-                            <td class="px-6 py-4">
-                                <form action="{{ route('costs.update', $cost) }}" method="post">
-                                    @csrf
-                                    @method('patch')
-                                    <input type="checkbox" name="paid" id="paid" class="bg-gray-800 hover:border-blue-800" @if($cost->paid) checked @endif onChange="this.form.submit()">
-                                    <input type="hidden" name="form_type" value="update_paid">
-                                </form>
-                            </td>
-                            <td class="px-6 py-4">
-                                <form action="{{ route('costs.destroy', $cost) }}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $cost->description }}')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
+                                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $cost->description }}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        <form action="{{ route('costs.update', $cost) }}" method="post">
+                                            @csrf
+                                            @method('patch')
+                                            <input type="text" name="amount" id="amount" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ number_format($cost->amount / 100, 2, '.', '') }}">
+                                            <input type="hidden" name="form_type" value="update_amount">
+                                        </form>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <form action="{{ route('costs.update', $cost) }}" method="post">
+                                            @csrf
+                                            @method('patch')
+                                            <input type="text" name="category" id="category" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ ucfirst($cost->category) }}">
+                                            <input type="hidden" name="form_type" value="update_category">
+                                        </form>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <form action="{{ route('costs.update', $cost) }}" method="post">
+                                            @csrf
+                                            @method('patch')
+                                            <input type="checkbox" name="paid" id="paid" class="bg-gray-800 hover:border-blue-800" @if($cost->paid) checked @endif onChange="this.form.submit()">
+                                            <input type="hidden" name="form_type" value="update_paid">
+                                        </form>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <form action="{{ route('costs.destroy', $cost) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $cost->description }}')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                    </tbody>
-                </table>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class ="flex flex-1 sm:items-stretch justify-end h-1.5">
+                        <table class="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+{{--                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">--}}
+{{--                            <tr>--}}
+{{--                                <th scope="col" class="px-6 py-3">--}}
+{{--                                    Statistic--}}
+{{--                                </th>--}}
+{{--                                <th scope="col" class="px-6 py-3">--}}
+{{--                                    Eur--}}
+{{--                                </th>--}}
+{{--                            </tr>--}}
+{{--                            </thead>--}}
+                            <tbody>
+                                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <td class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">Received back &nbsp;&nbsp;</td>
+                                    <td class="px-6 py-4">&euro; 1234.34</td>
+                                </tr>
+                                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <td class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">Leftover &nbsp;&nbsp;</td>
+                                    <td class="px-6 py-4">&euro; 1234.34</td>
+                                </tr>
+                                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <td class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">Required &nbsp;&nbsp;</td>
+                                    <td class="px-6 py-4">&euro; 1234.34</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
 
         </div>
