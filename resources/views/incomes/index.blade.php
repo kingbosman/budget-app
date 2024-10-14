@@ -11,7 +11,10 @@
             <x-budgets.tabs :$budget />
             <div class ="mt-5 mb-3 flex flex-1">
                 <div class="flex flex-1 sm:items-stretch justify-start">
-                    <a href="{{ route('incomes.create', $budget) }}" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">+ Create</a>
+                    <a href="{{ route('incomes.create', $budget) }}" class="rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">+ Create income</a>
+                </div>
+                <div class="flex flex-1 sm:items-stretch justify-end">
+                    <a href="{{ route('splits.index', $budget) }}" class="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Split settings</a>
                 </div>
             </div>
 

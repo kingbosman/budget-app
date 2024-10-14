@@ -5,6 +5,7 @@ use App\Http\Controllers\CostController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\SplitController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -85,6 +86,13 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/income/{income}', [IncomeController::class, 'destroy'])
         ->name('incomes.destroy')
         ->can('destroy', 'income');
+
+    Route::get('/split/{budget}', [SplitController::class, 'index'])
+        ->name('splits.index')
+        ->can('update', 'budget');
+    Route::post('/split/{budget}', [SplitController::class, 'store'])
+        ->name('splits.store')
+        ->can('update', 'budget');
 
 });
 
