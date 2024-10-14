@@ -15,10 +15,22 @@ class IncomeController extends Controller
      */
     public function index(Budget $budget): View
     {
+        $incomes = Income::query()->where('budget_id', $budget->id)->get();
+        $total = [
+            'income' => array_sum(array_column($incomes->toArray(), 'amount')) / 100,
+            'cost' => array_sum(array_column($budget->costs->toArray(), 'amount')) / 100,
+        ];
+        $total['remainder'] = $total['income'] - $total['cost'];
+        $total['percentage'] = [
+            'income' => 100,
+            'cost' => $total['cost'] / $total['income'] * 100,
+            'remainder' => $total['remainder'] / $total['income'] * 100,
+        ];
 
         return view('incomes.index', [
             'budget' => $budget,
-            'incomes' => Income::query()->where('budget_id', $budget->id)->get(),
+            'incomes' => $incomes,
+            'total' => $total
         ]);
     }
 
