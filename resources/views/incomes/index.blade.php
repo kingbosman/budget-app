@@ -124,11 +124,10 @@
                                     {{ $key }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ round($split['percentage'] / $totals['factor'],2) }} %
+                                    {{ round($split['percentage'], 2) }} %
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ // TODO only refactor when minimum or maximum was skipped }}
-                                    &euro; {{ number_format($split['amount'] / $totals['factor'],2) }}
+                                    &euro; {{ number_format($split['amount'],2) }}
                                 </td>
                             </tr>
                         @endforeach

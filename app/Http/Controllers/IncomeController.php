@@ -32,12 +32,13 @@ class IncomeController extends Controller
         $splits = Split::query()->where('budget_id', $budget->id)->get();
         $real_splits = [];
         $totals['amount']['total'] = 0;
+        $it_percentage = 0;
+        $newIteration = [];
         foreach ($splits as $key => $split) {
             // percentage in integer saved with 2 decimals
             $amount = ($split['percentage'] / 10000) * $total['remainder'];
             if (($split['minimal'] / 100) > $amount) $mod_amount = $split['minimal'] / 100;
             if (($split['maximum'] / 100) < $amount && $split['maximum'] > 0) $mod_amount = $split['maximum'] / 100;
-
 
             if (isset($mod_amount)) {
                 $totals['amount']['total'] += $mod_amount;
@@ -45,38 +46,39 @@ class IncomeController extends Controller
                 $real_splits[$split['name']]['percentage'] = $mod_amount / $total['remainder'] * 100;
             }
 
-            //todo set total percentage 0 here
             if (!isset($mod_amount)) {
                 $newIteration[$split['name']]['amount'] = $amount;
                 $newIteration[$split['name']]['percentage'] = $split['percentage'];
-                // todo increment total percentage here so you can use them in loop below
+                $it_percentage += $split['percentage'];
             }
 
-
+            unset($mod_amount);
 
         }
 
         $remainder = $total['remainder'] - $totals['amount']['total'];
+
         foreach ($newIteration as $key => $iteration) {
-            // todo get all percentages and convert them to total 100%
-            // todo multiply percentages by remainder to get actual value
-            // todo get percentage by dividing by $total['remainder']
+            if ($it_percentage > 0 && $remainder > 0) {
+                $percentage = $iteration['percentage'] / $it_percentage;
+                $amount = round($remainder * $percentage, 2, PHP_ROUND_HALF_DOWN);
+                $real_splits[$key]['amount'] = $amount;
+                $real_splits[$key]['percentage'] = $amount / $total['remainder'] * 100;
+            }
+            else {
+                $real_splits[$key]['amount'] = 0;
+                $real_splits[$key]['percentage'] = 0;
+            }
 
-//            $real_splits[$key]['amount'] = $iteration['amount'];
-//            $real_splits[$key]['percentage'] = $iteration['amount'] / $total['remainder'] * 100;
         }
-        dd($remainder, $real_splits, $newIteration);
+        //todo display error if total percentage is more than 100
 
-
-
-//        $totals['factor'] = $totals['amount']['total'] / $total['remainder'];
 
         return view('incomes.index', [
             'budget' => $budget,
             'incomes' => $incomes,
             'total' => $total,
             'splits' => $real_splits,
-            'totals' => $totals,
         ]);
     }
 
