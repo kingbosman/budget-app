@@ -21,6 +21,16 @@
 
 
             <div class="mt-5 relative overflow-x-auto shadow-md sm:rounded-lg">
+                @if (session('status'))
+                    <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                        <span class="font-medium">{{ session('status') }}</span>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-red-500" role="alert">
+                        <span class="font-medium">{{ $errors->first() }}</span>
+                    </div>
+                @endif
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -78,7 +88,7 @@
                             </td>
                             <td>
 {{--                                split route--}}
-                                <form action="#" method="POST">
+                                <form action="{{ route('splits.destroy', $split) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $split->name }}')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>

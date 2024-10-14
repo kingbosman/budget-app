@@ -47,8 +47,9 @@ class SplitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Split $split)
+    public function destroy(Split $split): RedirectResponse
     {
-        //
+        $split->delete();
+        return redirect()->route('splits.index', $split->budget)->with('status', $split->name . ' deleted successfully!');
     }
 }

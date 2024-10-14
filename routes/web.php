@@ -94,5 +94,9 @@ Route::middleware(['auth'])->group(function () {
         ->name('splits.store')
         ->can('update', 'budget');
 
+    Route::delete('split/{split}', [SplitController::class, 'destroy'])
+        ->name('splits.destroy')
+        ->can('update', 'split');
+
 });
 
