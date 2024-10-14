@@ -27,4 +27,9 @@ class Budget extends Model
         return $this->hasMany(Income::class);
     }
 
+    public function splits(): HasMany
+    {
+        return $this->hasMany(Split::class);
+    }
+
 }

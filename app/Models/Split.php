@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Income extends Model
+class Split extends Model
 {
     use HasFactory;
 
-    public function budget(): BelongsTo
+    public function budget(): belongsTo
     {
         return $this->belongsTo(Budget::class);
     }
-
 }
