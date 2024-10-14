@@ -6,6 +6,7 @@ use App\Models\Budget;
 use App\Models\Split;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class SplitController extends Controller
@@ -39,9 +40,48 @@ class SplitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Split $split)
+    public function update(Request $request, Split $split): RedirectResponse
     {
-        //
+        switch($request->form_type) {
+            case 'update_name':
+                $attributes = $request->validate([
+                    'name' => 'required|string'
+                ]);
+                break;
+            case 'update_percentage':
+                $attributes = $request->validate([
+                    'percentage' => 'required|numeric|min:0'
+                ]);
+                $attributes['percentage'] = $attributes['percentage'] * 100;
+                break;
+            case 'update_minimal':
+                $attributes = $request->validate([
+                    'minimal' => 'required|numeric|min:0'
+                ]);
+
+                if ($attributes['minimal'] > $split->maximum / 100 && $split->maximum > 0) {
+                    throw validationException::withMessages([
+                        'minimal' => 'Minimal can not exceed Maximum',
+                    ]);
+                }
+                $attributes['minimal'] = $attributes['minimal'] * 100;
+                break;
+            case 'update_maximum':
+                $attributes = $request->validate([
+                    'maximum' => 'required|numeric|min:0'
+                ]);
+                if ($attributes['maximum'] < $split->minimal / 100 && $attributes['maximum'] > 0) {
+                    throw validationException::withMessages([
+                        'maximum' => 'Maximum can not be lower than Minimal',
+                    ]);
+                }
+                $attributes['maximum'] = $attributes['maximum'] * 100;
+                break;
+        }
+
+        $split->update($attributes);
+        return redirect()->route('splits.index', $split->budget);
+
     }
 
     /**

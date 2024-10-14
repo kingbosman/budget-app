@@ -97,6 +97,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('split/{split}', [SplitController::class, 'destroy'])
         ->name('splits.destroy')
         ->can('update', 'split');
+    Route::patch('split/{split}', [SplitController::class, 'update'])
+        ->name('splits.update')
+        ->can('update', 'split');
 
 });
 

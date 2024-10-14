@@ -55,7 +55,7 @@
                     @foreach($budget->splits as $split)
                         <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                             <td class="px-6 py-4">
-                                <form method="POST">
+                                <form method="POST" action="{{ route('splits.update', $split) }}">
                                     @method('patch')
                                     @csrf
                                     <input type="hidden" name="form_type" value="update_name">
@@ -63,31 +63,30 @@
                                 </form>
                             </td>
                             <td class="px-6 py-4">
-                                <form method="POST">
+                                <form method="POST" action="{{ route('splits.update', $split) }}">
                                     @method('patch')
                                     @csrf
-                                    <input type="hidden" name="form_type" value="update_name">
-                                    <input type="text" name="percentage" id="percentage" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ $split->percentage }}">
+                                    <input type="hidden" name="form_type" value="update_percentage">
+                                    <input type="text" name="percentage" id="percentage" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ $split->percentage / 100 }}">
                                 </form>
                             </td>
                             <td class="px-6 py-4">
-                                <form method="POST">
+                                <form method="POST" action="{{ route('splits.update', $split) }}">
                                     @method('patch')
                                     @csrf
-                                    <input type="hidden" name="form_type" value="update_name">
-                                    <input type="text" name="minimal" id="minimal" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ $split->minimal }}">
+                                    <input type="hidden" name="form_type" value="update_minimal">
+                                    <input type="text" name="minimal" id="minimal" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ $split->minimal / 100 }}">
                                 </form>
                             </td>
                             <td class="px-6 py-4">
-                                <form method="POST">
+                                <form method="POST" action="{{ route('splits.update', $split) }}">
                                     @method('patch')
                                     @csrf
-                                    <input type="hidden" name="form_type" value="update_name">
-                                    <input type="text" name="maximum" id="maximum" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ $split->maximum }}">
+                                    <input type="hidden" name="form_type" value="update_maximum">
+                                    <input type="text" name="maximum" id="maximum" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ $split->maximum / 100 }}">
                                 </form>
                             </td>
                             <td>
-{{--                                split route--}}
                                 <form action="{{ route('splits.destroy', $split) }}" method="POST">
                                     @csrf
                                     @method('delete')

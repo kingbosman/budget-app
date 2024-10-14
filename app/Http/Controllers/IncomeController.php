@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Budget;
 use App\Models\Income;
+use App\Models\Split;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -27,10 +28,55 @@ class IncomeController extends Controller
             'remainder' => $total['remainder'] / $total['income'] * 100,
         ];
 
+        // Calculate actual percentages for each split
+        $splits = Split::query()->where('budget_id', $budget->id)->get();
+        $real_splits = [];
+        $totals['amount']['total'] = 0;
+        foreach ($splits as $key => $split) {
+            // percentage in integer saved with 2 decimals
+            $amount = ($split['percentage'] / 10000) * $total['remainder'];
+            if (($split['minimal'] / 100) > $amount) $mod_amount = $split['minimal'] / 100;
+            if (($split['maximum'] / 100) < $amount && $split['maximum'] > 0) $mod_amount = $split['maximum'] / 100;
+
+
+            if (isset($mod_amount)) {
+                $totals['amount']['total'] += $mod_amount;
+                $real_splits[$split['name']]['amount'] = round($mod_amount, 2, PHP_ROUND_HALF_DOWN);
+                $real_splits[$split['name']]['percentage'] = $mod_amount / $total['remainder'] * 100;
+            }
+
+            //todo set total percentage 0 here
+            if (!isset($mod_amount)) {
+                $newIteration[$split['name']]['amount'] = $amount;
+                $newIteration[$split['name']]['percentage'] = $split['percentage'];
+                // todo increment total percentage here so you can use them in loop below
+            }
+
+
+
+        }
+
+        $remainder = $total['remainder'] - $totals['amount']['total'];
+        foreach ($newIteration as $key => $iteration) {
+            // todo get all percentages and convert them to total 100%
+            // todo multiply percentages by remainder to get actual value
+            // todo get percentage by dividing by $total['remainder']
+
+//            $real_splits[$key]['amount'] = $iteration['amount'];
+//            $real_splits[$key]['percentage'] = $iteration['amount'] / $total['remainder'] * 100;
+        }
+        dd($remainder, $real_splits, $newIteration);
+
+
+
+//        $totals['factor'] = $totals['amount']['total'] / $total['remainder'];
+
         return view('incomes.index', [
             'budget' => $budget,
             'incomes' => $incomes,
-            'total' => $total
+            'total' => $total,
+            'splits' => $real_splits,
+            'totals' => $totals,
         ]);
     }
 

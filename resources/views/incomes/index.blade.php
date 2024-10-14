@@ -118,39 +118,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                To Annie
-                            </th>
-                            <td class="px-6 py-4">
-                                12.34%
-                            </td>
-                            <td class="px-6 py-4">
-                                &euro; 123.65
-                            </td>
-                        </tr>
-                        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Emergency Funds
-                            </th>
-                            <td class="px-6 py-4">
-                                12.34%
-                            </td>
-                            <td class="px-6 py-4">
-                                &euro; 123.65
-                            </td>
-                        </tr>
-                        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Investing
-                            </th>
-                            <td class="px-6 py-4">
-                                12.34%
-                            </td>
-                            <td class="px-6 py-4">
-                                &euro; 123.65
-                            </td>
-                        </tr>
+                        @foreach($splits as $key => $split)
+                            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ $key }}
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{ round($split['percentage'] / $totals['factor'],2) }} %
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ // TODO only refactor when minimum or maximum was skipped }}
+                                    &euro; {{ number_format($split['amount'] / $totals['factor'],2) }}
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
