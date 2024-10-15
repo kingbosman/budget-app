@@ -16,6 +16,7 @@ class IncomeController extends Controller
      */
     public function index(Budget $budget): View
     {
+        // Default income logic
         $incomes = Income::query()->where('budget_id', $budget->id)->get();
         $total = [
             'income' => array_sum(array_column($incomes->toArray(), 'amount')) / 100,
@@ -28,12 +29,22 @@ class IncomeController extends Controller
             'remainder' => $total['remainder'] / $total['income'] * 100,
         ];
 
+        // Start split logic here
         // Calculate actual percentages for each split
         $splits = Split::query()->where('budget_id', $budget->id)->get();
+
+        // Create empty array for named convention later
         $real_splits = [];
+
+        // create a total for calculating the remainder will increment with each iteration
         $totals['amount']['total'] = 0;
+
+        // set a a total remainder percentage will increment with each iteration
         $it_percentage = 0;
+
+        // add the second iteration array, empty by default
         $newIteration = [];
+
         foreach ($splits as $key => $split) {
             // percentage in integer saved with 2 decimals
             $amount = ($split['percentage'] / 10000) * $total['remainder'];
@@ -46,18 +57,21 @@ class IncomeController extends Controller
                 $real_splits[$split['name']]['percentage'] = $mod_amount / $total['remainder'] * 100;
             }
 
+            // create the new iteration for items without min/max
             if (!isset($mod_amount)) {
                 $newIteration[$split['name']]['amount'] = $amount;
                 $newIteration[$split['name']]['percentage'] = $split['percentage'];
                 $it_percentage += $split['percentage'];
             }
 
+            // Unset for next iteration
             unset($mod_amount);
 
         }
 
         $remainder = $total['remainder'] - $totals['amount']['total'];
 
+        // Iterate through items without min and max and set their values for the split
         foreach ($newIteration as $key => $iteration) {
             if ($it_percentage > 0 && $remainder > 0) {
                 $percentage = $iteration['percentage'] / $it_percentage;
@@ -69,16 +83,17 @@ class IncomeController extends Controller
                 $real_splits[$key]['amount'] = 0;
                 $real_splits[$key]['percentage'] = 0;
             }
-
         }
-        //todo display error if total percentage is more than 100
 
+        // add percentages to show when split exceed 100%
+        $income_percentages = array_sum(array_column($real_splits, 'percentage'));
 
         return view('incomes.index', [
             'budget' => $budget,
             'incomes' => $incomes,
             'total' => $total,
             'splits' => $real_splits,
+            'income_percentages' => $income_percentages,
         ]);
     }
 
