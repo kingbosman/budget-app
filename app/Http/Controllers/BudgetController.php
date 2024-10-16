@@ -58,7 +58,7 @@ class BudgetController extends Controller
         // get all costs
         $costs = Cost::query()
             ->where('budget_id', $budget->id)
-            ->orderBy('category', 'desc')
+            ->orderBy('category')
             ->get();
 
         // get reserved income
@@ -71,6 +71,7 @@ class BudgetController extends Controller
         foreach ($costs as $cost) {
             if (!$cost->paid) $unpaid += $cost->amount;
         }
+
 
         return View('budgets.show', [
             'budget' => $budget,
