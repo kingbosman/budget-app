@@ -25,8 +25,8 @@ class IncomeController extends Controller
         $total['remainder'] = $total['income'] - $total['cost'];
         $total['percentage'] = [
             'income' => 100,
-            'cost' => $total['cost'] / $total['income'] * 100,
-            'remainder' => $total['remainder'] / $total['income'] * 100,
+            'cost' => ($total['income']) ? $total['cost'] / $total['income'] * 100 : 0,
+            'remainder' => ($total['income']) ? $total['remainder'] / $total['income'] * 100 : 0,
         ];
 
         // Start split logic here
