@@ -61,7 +61,7 @@
                                         @csrf
                                         @method('patch')
                                         <input type="hidden" name="form_type" value="update_amount">
-                                        <input type="text" name="amount" id="amount" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ $income->amount / 100 }}">
+                                        <input type="text" name="amount" id="amount" class="bg-gray-800 text-gray-100 text-xs hover:border-blue-800" value="{{ number_format($income->amount / 100, 2, thousands_separator: '') }}">
                                         <button class="hidden" type="submit"></button>
                                     </form>
                                 </td>

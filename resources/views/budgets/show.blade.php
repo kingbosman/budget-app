@@ -105,16 +105,16 @@
                         <table class="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <tbody>
                                 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                    <td class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">Received back &nbsp;&nbsp;</td>
-                                    <td class="px-6 py-4">&euro; 1234.34</td>
+                                    <td class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"> Open Bills &nbsp;&nbsp;</td>
+                                    <td class="px-6 py-4">&euro; {{ number_format($unpaid,2) }}</td>
                                 </tr>
                                 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                    <td class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">Leftover &nbsp;&nbsp;</td>
-                                    <td class="px-6 py-4">&euro; 1234.34</td>
+                                    <td class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">Reserved &nbsp;&nbsp;</td>
+                                    <td class="px-6 py-4">&euro; {{ number_format($reserved,2) }}</td>
                                 </tr>
                                 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                     <td class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">Required &nbsp;&nbsp;</td>
-                                    <td class="px-6 py-4">&euro; 1234.34</td>
+                                    <td class="px-6 py-4">&euro; {{ number_format($reserved + $unpaid,2) }}</td>
                                 </tr>
                             </tbody>
                         </table>

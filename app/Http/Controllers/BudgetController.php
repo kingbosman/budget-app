@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Budget;
 use App\Models\Cost;
+use App\Models\Income;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,14 +55,28 @@ class BudgetController extends Controller
      */
     public function show(Budget $budget): View
     {
+        // get all costs
         $costs = Cost::query()
             ->where('budget_id', $budget->id)
             ->orderBy('category', 'desc')
             ->get();
 
+        // get reserved income
+        $reserved = Income::query()
+            ->where('budget_id', $budget->id)
+            ->where('is_received', 1)
+            ->sum('amount');
+
+        $unpaid= 0;
+        foreach ($costs as $cost) {
+            if (!$cost->paid) $unpaid += $cost->amount;
+        }
+
         return View('budgets.show', [
             'budget' => $budget,
             'costs' => $costs,
+            'reserved' => $reserved / 100,
+            'unpaid' => $unpaid / 100,
         ]);
     }
 
