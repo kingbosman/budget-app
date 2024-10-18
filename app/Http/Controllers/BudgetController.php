@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -123,7 +124,15 @@ class BudgetController extends Controller
         if($budget->users->find($userId)) throw ValidationException::withMessages(['email' => 'Already shared']);
         $budget->users()->attach($userId);
 
-        return redirect()->route('budgets.show', ['budget' => $budget]);
+        return redirect()->back();
 
+    }
+
+    public function destroyShare(Budget $budget, Request $request): RedirectResponse
+    {
+        $userId = $request->user_id;
+        if($userId == Auth::id()) throw ValidationException::withMessages(['user_id' => 'You cannot delete yourself']);
+        $budget->users()->detach($userId);
+        return redirect()->back();
     }
 }
