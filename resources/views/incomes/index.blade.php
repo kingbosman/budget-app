@@ -29,7 +29,7 @@
                         <span class="font-medium">{{ $errors->first() }}</span>
                     </div>
                 @endif
-                @if ($income_percentages > 100)
+                @if (round($income_percentages) > 100)
                     <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-orange-500" role="alert">
                         <span class="font-medium">Split percentages are at {{ round($income_percentages, 2) }}%, consider lowering minimum amounts</span>
                     </div>

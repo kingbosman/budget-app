@@ -21,6 +21,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('budget_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->unique(['budget_id', 'user_id']);
         });
     }
 

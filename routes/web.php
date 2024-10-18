@@ -52,6 +52,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('budgets/{budget}/edit', [BudgetController::class, 'destroy'])
         ->name('budgets.delete')
         ->can('update', 'budget');
+    Route::post('budgets/{budget}/share', [BudgetController::class, 'storeShare'])
+        ->name('budgets.share')
+        ->can('update', 'budget');
 
     // Record
     Route::get('/costs/{budget}/new', [CostController::class, 'create'])

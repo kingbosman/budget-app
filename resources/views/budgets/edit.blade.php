@@ -16,9 +16,18 @@
                     </form>
                 </div>
             </div>
+
             <x-forms.form method="patch" button="Update">
                 <x-forms.input name="name" value="{{ $budget->name }}" />
             </x-forms.form>
 
+        </div>
+        <div class="mx-auto max-w-3xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 class="mb-5 text-3xl font-bold underline text-gray-300">Sharing</h1>
+            <x-forms.form method="post" button="Share" action="{{ route('budgets.share', $budget) }}">
+                <x-forms.input name="email" placeholder="John@planet.nl" value="{{ old('email') }}" />
+            </x-forms.form>
+
+        </div>
     </main>
 </x-layout>

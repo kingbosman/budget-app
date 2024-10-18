@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Budget;
 use App\Models\Cost;
 use App\Models\Income;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class BudgetController extends Controller
@@ -105,9 +107,23 @@ class BudgetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Budget $budget)
+    public function destroy(Budget $budget): RedirectResponse
     {
         $budget->delete();
         return redirect()->route('budgets.index')->with('status', 'Budget ' . $budget->name . ' successfully deleted!');
+    }
+
+    public function storeShare(Budget $budget, Request $request): RedirectResponse
+    {
+        $attributes = $request->validate([
+            'email' => ['required','email','exists:users,email'],
+        ]);
+
+        $userId = User::where('email', $attributes['email'])->first('id')->id;
+        if($budget->users->find($userId)) throw ValidationException::withMessages(['email' => 'Already shared']);
+        $budget->users()->attach($userId);
+
+        return redirect()->route('budgets.show', ['budget' => $budget]);
+
     }
 }
