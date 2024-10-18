@@ -50,22 +50,24 @@
                     </thead>
                     <tbody>
                         @foreach($budget->users as $user)
-                            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ ucfirst($user->name) }}
-                                </th>
-                                <td class="px-6 py-4">
-                                    {{ strtolower($user->email) }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    <form action="{{ route('budgets.share.delete', $budget) }}" method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <input name="user_id" type="hidden" value="{{ $user->id }}">
-                                        <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $user->name }}')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
+                            @if($user->id !== Auth::id())
+                                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ ucfirst($user->name) }}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ strtolower($user->email) }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <form action="{{ route('budgets.share.delete', $budget) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <input name="user_id" type="hidden" value="{{ $user->id }}">
+                                            <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $user->name }}')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
