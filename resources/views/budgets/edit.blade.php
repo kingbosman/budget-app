@@ -5,17 +5,19 @@
             <h1 class="mb-5 text-3xl font-bold underline text-gray-300">
                 Update {{ $budget->name }}
             </h1>
-            <div class="flex flex-1">
-                <div class="flex flex-1 justify-end">
-                    <form method="POST" action="{{ route('budgets.delete', $budget) }}">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $budget->name }}')" class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
-                            Delete
-                        </button>
-                    </form>
+            @if($is_admin)
+                <div class="flex flex-1">
+                    <div class="flex flex-1 justify-end">
+                        <form method="POST" action="{{ route('budgets.delete', $budget) }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $budget->name }}')" class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            @endif
 
             <x-forms.form method="patch" button="Update">
                 <x-forms.input name="name" value="{{ $budget->name }}" />
@@ -28,7 +30,7 @@
                 <x-forms.input name="email" placeholder="John@planet.nl" value="{{ old('email') }}" />
             </x-forms.form>
 
-            @if(true)
+            @if(count($budget->users) > 1)
                 <h3 class="mb-5 text-xl font-bold underline text-gray-300">Shared with</h3>
 
                 @error('user_id')
@@ -45,7 +47,7 @@
                         <th scope="col" class="px-6 py-3">
                             Email
                         </th>
-                        <th scope="col" class="px-6 py-3"></th>
+                        @if($is_admin) <th scope="col" class="px-6 py-3"></th> @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -58,14 +60,16 @@
                                     <td class="px-6 py-4">
                                         {{ strtolower($user->email) }}
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <form action="{{ route('budgets.share.delete', $budget) }}" method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <input name="user_id" type="hidden" value="{{ $user->id }}">
-                                            <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $user->name }}')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
-                                        </form>
-                                    </td>
+                                    @if($is_admin)
+                                        <td class="px-6 py-4">
+                                            <form action="{{ route('budgets.share.delete', $budget) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <input name="user_id" type="hidden" value="{{ $user->id }}">
+                                                <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $user->name }}')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endif
                         @endforeach

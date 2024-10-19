@@ -44,8 +44,11 @@ class BudgetController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $attributes = $request->validate([
-           'name' => ['required','min:3'],
+           'name' => ['required','min:3', 'max:100'],
         ]);
+
+        //set creator of the budget as admin
+        $attributes['admin_user_id'] = Auth::id();
 
         $budget = Budget::create($attributes);
         $budget->users()->attach(Auth::id());
@@ -89,7 +92,10 @@ class BudgetController extends Controller
      */
     public function edit(Budget $budget): View
     {
-        return View('budgets.edit', ['budget' => $budget]);
+        return View('budgets.edit', [
+            'budget' => $budget,
+            'is_admin' => Auth::id() === $budget->admin_user_id,
+        ]);
     }
 
     /**

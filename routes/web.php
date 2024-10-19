@@ -51,13 +51,13 @@ Route::middleware(['auth'])->group(function () {
         ->can('update', 'budget');
     Route::delete('budgets/{budget}/edit', [BudgetController::class, 'destroy'])
         ->name('budgets.delete')
-        ->can('update', 'budget');
+        ->can('destroy', 'budget');
     Route::post('budgets/{budget}/share', [BudgetController::class, 'storeShare'])
         ->name('budgets.share')
         ->can('update', 'budget');
     Route::delete('budgets/{budget}/share', [BudgetController::class, 'destroyShare'])
         ->name('budgets.share.delete')
-        ->can('update', 'budget');
+        ->can('destroy', 'budget');
 
     // Record
     Route::get('/costs/{budget}/new', [CostController::class, 'create'])
