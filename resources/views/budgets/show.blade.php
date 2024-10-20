@@ -42,10 +42,13 @@
                                     Description
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Eur
+                                    total eur
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Category
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    remaining
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Paid
@@ -78,6 +81,9 @@
                                             </form>
                                         </td>
                                         <td class="px-6 py-4">
+                                            &euro; 0.00
+                                        </td>
+                                        <td class="px-6 py-4">
                                             <form action="{{ route('costs.update', $cost) }}" method="post">
                                                 @csrf
                                                 @method('patch')
@@ -86,11 +92,16 @@
                                             </form>
                                         </td>
                                         <td class="px-6 py-4">
-                                            <form action="{{ route('costs.destroy', $cost) }}" method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $cost->description }}')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
-                                            </form>
+                                            <div>
+                                                <form action="{{ route('costs.destroy', $cost) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" onclick="return confirm('Are you sure you want to delete {{ $cost->description }}')" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                                </form>
+                                            </div>
+                                            <div class="mt-1">
+                                                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="#">Reduce</a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
