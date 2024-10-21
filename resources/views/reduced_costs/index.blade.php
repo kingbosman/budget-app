@@ -17,11 +17,6 @@
                         <span class="font-medium">{{ session('status') }}</span>
                     </div>
                 @endif
-                @if ($errors->any())
-                    <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-red-500" role="alert">
-                        <span class="font-medium">{{ $errors->first() }}</span>
-                    </div>
-                @endif
 
 
                 <div class ="mt-5 mb-3 flex flex-1">

@@ -72,8 +72,11 @@ class ReducedCostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ReducedCost $reduced_cost)
+    public function destroy(ReducedCost $reduced_cost): RedirectResponse
     {
-        dd('dodododod');
+        $reduced_cost->delete();
+
+        return redirect()->route('reduce.index', $reduced_cost->cost->budget)
+            ->with('status', number_format($reduced_cost->amount / 100, 2) . ' from ' . $reduced_cost->cost->description . ' has been deleted');
     }
 }

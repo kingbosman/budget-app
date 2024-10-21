@@ -118,9 +118,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('reduce/{budget}', [ReducedCostController::class, 'index'])
         ->name('reduce.index')
         ->can('show', 'budget');
-    Route::delete('reduce/delete/{cost}', [ReducedCostController::class, 'destroy'])
+    Route::delete('reduce/delete/{reduced_cost}', [ReducedCostController::class, 'destroy'])
         ->name('reduce.destroy')
-        ->can('update', 'cost');
+        ->can('delete', 'reduced_cost');
 
 });
 
