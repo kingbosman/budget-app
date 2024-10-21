@@ -115,6 +115,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('reduce/{cost}/create', [ReducedCostController::class, 'store'])
         ->name('reduce.store')
         ->can('update', 'cost');
+    Route::get('reduce/{budget}', [ReducedCostController::class, 'index'])
+        ->name('reduce.index')
+        ->can('show', 'budget');
+    Route::delete('reduce/delete/{cost}', [ReducedCostController::class, 'destroy'])
+        ->name('reduce.destroy')
+        ->can('update', 'cost');
 
 });
 

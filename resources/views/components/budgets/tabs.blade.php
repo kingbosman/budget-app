@@ -12,4 +12,7 @@
     <li class="me-2">
         <a href="{{ route('incomes.index', $budget) }}" aria-current="{{ request()->is('income*') ? 'page' : 'false' }}" class="{{ request()->is('income*') ? $active : $idle}}">Income</a>
     </li>
+    <li class="me-2">
+        <a href="{{ route('reduce.index', $budget) }}" aria-current="{{ request()->is('reduce*') ? 'page' : 'false' }}" class="{{ request()->is('reduce*') ? $active : $idle}}">Reduced</a>
+    </li>
 </ul>

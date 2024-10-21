@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Budget;
 use App\Models\Cost;
 use App\Models\ReducedCost;
 use Illuminate\Http\RedirectResponse;
@@ -14,9 +15,23 @@ class ReducedCostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Budget $budget): View
     {
-        //
+        $costs_ids = Cost::query()
+            ->where('budget_id', $budget->id)
+            ->get('id');
+        $costs_ids = array_column($costs_ids->toArray(), 'id');
+
+        $records = ReducedCost::query()
+            ->whereIn('cost_id', $costs_ids)
+            ->with(['cost'])
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('reduced_costs.index', [
+            'records' => $records,
+            'budget' => $budget,
+        ]);
     }
 
     /**
@@ -59,6 +74,6 @@ class ReducedCostController extends Controller
      */
     public function destroy(ReducedCost $reduced_cost)
     {
-        //
+        dd('dodododod');
     }
 }
