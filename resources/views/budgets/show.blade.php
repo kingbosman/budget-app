@@ -81,7 +81,7 @@
                                             </form>
                                         </td>
                                         <td class="px-6 py-4">
-                                            &euro; 0.00
+                                            &euro; {{ number_format(($cost->amount - array_sum(array_column($cost->reducedCosts->toArray(), 'amount'))) / 100, 2) }}
                                         </td>
                                         <td class="px-6 py-4">
                                             <form action="{{ route('costs.update', $cost) }}" method="post">
@@ -100,7 +100,7 @@
                                                 </form>
                                             </div>
                                             <div class="mt-1">
-                                                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="#">Reduce</a>
+                                                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="{{ route('reduce.create', $cost) }}">Reduce</a>
                                             </div>
                                         </td>
                                     </tr>

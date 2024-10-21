@@ -16,8 +16,8 @@ class Cost extends Model
         return $this->belongsTo(Budget::class);
     }
 
-    public function reduced_costs(): hasMany
+    public function reducedCosts(): hasMany
     {
-        return $this->hasMany(Reduced_Cost::class);
+        return $this->hasMany(ReducedCost::class);
     }
 }

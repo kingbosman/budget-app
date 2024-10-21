@@ -3,6 +3,7 @@
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CostController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\ReducedCostController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SplitController;
@@ -106,6 +107,14 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('split/{split}', [SplitController::class, 'update'])
         ->name('splits.update')
         ->can('update', 'split');
+
+    // Reduced records
+    Route::get('reduce/{cost}/create', [ReducedCostController::class, 'create'])
+        ->name('reduce.create')
+        ->can('update', 'cost');
+    Route::post('reduce/{cost}/create', [ReducedCostController::class, 'store'])
+        ->name('reduce.store')
+        ->can('update', 'cost');
 
 });
 

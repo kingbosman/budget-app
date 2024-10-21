@@ -63,6 +63,7 @@ class BudgetController extends Controller
     {
         // get all costs
         $costs = Cost::query()
+            ->with(['reducedCosts'])
             ->where('budget_id', $budget->id)
             ->orderBy('category')
             ->get();
